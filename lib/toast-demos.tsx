@@ -9,7 +9,7 @@ import {
 	Star,
 } from "lucide-react";
 import type { ReactNode } from "react";
-import type { ToastPosition } from "sileo";
+import type { SileoPosition } from "sileo";
 import { sileo } from "sileo";
 
 /* ----------------------------- Toast types -------------------------------- */
@@ -174,7 +174,7 @@ function EcommerceToast(): ReactNode {
 
 /* ----------------------------- Fire toast --------------------------------- */
 
-export function fireToast(type: ToastType, position?: ToastPosition) {
+export function fireToast(type: ToastType, position?: SileoPosition) {
 	switch (type) {
 		case "success":
 			sileo.success({
@@ -227,8 +227,8 @@ export function fireToast(type: ToastType, position?: ToastPosition) {
 				icon: <Bell className="size-3.5" />,
 				description: (
 					<span className="text-foreground/50">
-						We received your payment of $49.00. A receipt has been sent to
-						your email.
+						We received your payment of $49.00. A receipt has been sent to your
+						email.
 					</span>
 				),
 				position,
