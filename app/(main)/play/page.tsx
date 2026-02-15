@@ -2,12 +2,12 @@
 
 import { motion } from "motion/react";
 import { useState } from "react";
-import type { ToastPosition } from "sileo";
+import type { SileoPosition } from "sileo";
 
 import { Button } from "@/components/button";
 import { fireToast, PLAYGROUND_BUTTONS } from "@/lib/toast-demos";
 
-const POSITIONS: ToastPosition[] = [
+const POSITIONS: SileoPosition[] = [
 	"top-left",
 	"top-center",
 	"top-right",
@@ -19,7 +19,7 @@ const POSITIONS: ToastPosition[] = [
 const ease = [0.25, 0.46, 0.45, 0.94] as const;
 
 export default function Playground() {
-	const [position, setPosition] = useState<ToastPosition>("top-right");
+	const [position, setPosition] = useState<SileoPosition>("top-right");
 
 	return (
 		<>
