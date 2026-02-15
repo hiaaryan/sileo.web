@@ -5,7 +5,6 @@ import {
 	Bell,
 	File,
 	Rocket,
-	ShoppingBag,
 	Star,
 } from "lucide-react";
 import type { ReactNode } from "react";
@@ -25,8 +24,7 @@ export type ToastType =
 	| "promise-success"
 	| "promise-error"
 	| "custom-icon"
-	| "custom-flighty"
-	| "ecommerce";
+	| "custom-flighty";
 
 export interface ToastButton {
 	label: string;
@@ -43,7 +41,6 @@ export const HOMEPAGE_BUTTONS: ToastButton[] = [
 	{ label: "Action", type: "action" },
 	{ label: "Promise", type: "promise" },
 	{ label: "Icon", type: "custom-icon" },
-	{ label: "Ecommerce", type: "ecommerce" },
 ];
 
 export const PLAYGROUND_BUTTONS: ToastButton[] = [
@@ -57,7 +54,6 @@ export const PLAYGROUND_BUTTONS: ToastButton[] = [
 	{ label: "Promise", type: "promise-success" },
 	{ label: "Promise Error", type: "promise-error" },
 	{ label: "Flighty", type: "custom-flighty" },
-	{ label: "Ecommerce", type: "ecommerce" },
 ];
 
 /* -------------------------- Shared toast JSX ------------------------------ */
@@ -133,40 +129,6 @@ function FlightToast(): ReactNode {
 					<Armchair strokeWidth={2.5} className="size-4 text-black" />
 					<span className="text-black text-sm font-bold">32K</span>
 				</div>
-			</div>
-		</div>
-	);
-}
-
-function EcommerceToast(): ReactNode {
-	return (
-		<div className="flex flex-col gap-3 text-white">
-			<div className="flex items-center justify-between">
-				<div className="flex items-center gap-3">
-					<div className="size-10 rounded-xl bg-white/10 ring-1 ring-white/15 flex items-center justify-center">
-						<ShoppingBag className="size-4 text-white" />
-					</div>
-					<div className="flex flex-col">
-						<span className="text-sm font-semibold">Aurora Store</span>
-						<span className="text-xs text-white/60">Order #SIL-4921</span>
-					</div>
-				</div>
-				<div className="text-right">
-					<span className="text-[11px] text-white/60 uppercase tracking-wide">
-						Total
-					</span>
-					<div className="text-lg font-semibold">$128.40</div>
-				</div>
-			</div>
-			<div className="flex items-center gap-3 rounded-xl bg-white/5 border border-white/10 p-2">
-				<div className="size-11 rounded-lg bg-linear-to-br from-fuchsia-400/80 via-pink-400/70 to-amber-300/70 shadow-[0_8px_20px_rgba(236,72,153,0.35)]" />
-				<div className="flex-1">
-					<div className="text-sm font-medium">Aurora Hoodie</div>
-					<div className="text-xs text-white/60">Midnight - XL</div>
-				</div>
-				<span className="text-xs font-semibold text-emerald-300 bg-emerald-400/10 border border-emerald-400/20 px-2 py-1 rounded-full">
-					Paid
-				</span>
 			</div>
 		</div>
 	);
@@ -297,24 +259,6 @@ export function fireToast(type: ToastType, position?: SileoPosition) {
 					onClick: () => sileo.success({ title: "Details Viewed", position }),
 				},
 				description: <FlightToast />,
-				position,
-			});
-			break;
-		case "ecommerce":
-			sileo.action({
-				title: "New Sale",
-				fill: "black",
-				styles: {
-					title: "text-white!",
-					badge: "bg-white/20!",
-					button: "bg-white/10 hover:bg-white/15!",
-				},
-				icon: <ShoppingBag className="size-4 text-white" />,
-				description: <EcommerceToast />,
-				button: {
-					title: "View Order",
-					onClick: () => sileo.success({ title: "Order Viewed", position }),
-				},
 				position,
 			});
 			break;
