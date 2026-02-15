@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const NAV_LINKS = [
-	{ href: "https://github.com", label: "GitHub", external: true },
+	{ href: "https://github.com/hiaaryan/sileo", label: "GitHub", external: true },
 	{ href: "/docs", label: "Docs", external: false },
 	{ href: "/play", label: "Playground", external: false },
 ] as const;
