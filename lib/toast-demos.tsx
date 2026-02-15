@@ -67,11 +67,11 @@ const DARK_STYLES = {
 
 function FlightToast(): ReactNode {
 	return (
-		<div className="flex flex-col gap-4 -mt-1.5 text-white">
+		<div className="flex flex-col gap-4 -mt-1.5">
 			<div className="flex items-center -mb-4 justify-between">
 				{/* biome-ignore lint: external logo used in demo toast */}
 				<img
-					className="h-7.5 -ml-1.5 w-auto"
+					className="h-7.5 -ml-1.5 w-auto invert-0 dark:invert"
 					src="https://united.mediaroom.com/images/white_logo.png"
 					width={72}
 					height={30}
@@ -83,7 +83,7 @@ function FlightToast(): ReactNode {
 				</div>
 			</div>
 			<div className="flex items-center justify-between">
-				<span className="text-2xl font-medium mt-6 tracking-tight leading-none">
+				<span className="text-2xl font-medium mt-6 text-white dark:text-black tracking-tight leading-none">
 					DEL
 				</span>
 				<div
@@ -114,15 +114,15 @@ function FlightToast(): ReactNode {
 						<ArrowRight className="size-4 rotate-40 text-green-500" />
 					</div>
 				</div>
-				<span className="text-2xl mt-6 font-medium tracking-tight leading-none">
+				<span className="text-2xl mt-6 font-medium text-white dark:text-black tracking-tight leading-none">
 					SFO
 				</span>
 			</div>
 			<div className="flex items-center justify-between">
 				<div className="flex flex-col">
 					<span className="text-green-400 text-sm font-semibold">On Time</span>
-					<p className="text-white/50 text-xs">
-						PNR <span className="text-white">EC2QW4</span>
+					<p className="text-white/50 dark:text-black/50 text-xs">
+						PNR <span className="text-white dark:text-black">EC2QW4</span>
 					</p>
 				</div>
 				<div className="flex items-center gap-1.5 bg-amber-500 rounded-xl px-2.25 py-1.25">
@@ -188,7 +188,7 @@ export function fireToast(type: ToastType, position?: SileoPosition) {
 				title: "Payment Received",
 				icon: <Bell className="size-3.5" />,
 				description: (
-					<span className="text-foreground/50">
+					<span className="text-blue-500/50">
 						We received your payment of $49.00. A receipt has been sent to your
 						email.
 					</span>
@@ -201,8 +201,6 @@ export function fireToast(type: ToastType, position?: SileoPosition) {
 				loading: { title: "Booking Flight" },
 				success: {
 					title: "Booking Confirmed",
-					fill: "black",
-					styles: DARK_STYLES,
 					button: {
 						title: "View Details",
 						onClick: () => sileo.success({ title: "Details Viewed", position }),
@@ -210,6 +208,7 @@ export function fireToast(type: ToastType, position?: SileoPosition) {
 					description: <FlightToast />,
 				},
 				error: { title: "Booking Failed" },
+				position,
 			});
 			break;
 		case "promise-success":
@@ -222,6 +221,7 @@ export function fireToast(type: ToastType, position?: SileoPosition) {
 					position,
 				},
 				error: { title: "Save Failed" },
+				position,
 			});
 			break;
 		case "promise-error":
@@ -234,10 +234,10 @@ export function fireToast(type: ToastType, position?: SileoPosition) {
 					success: { title: "Connected" },
 					error: {
 						title: "Connection Failed",
-						styles: { description: "text-white!" },
-						description: "Network error — please check your connection.",
+						description: "Network error, please check your connection.",
 						position,
 					},
+					position,
 				},
 			);
 			break;
