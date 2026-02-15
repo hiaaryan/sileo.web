@@ -58,13 +58,6 @@ export const PLAYGROUND_BUTTONS: ToastButton[] = [
 
 /* -------------------------- Shared toast JSX ------------------------------ */
 
-const DARK_STYLES = {
-	title: "text-white!",
-	description: "text-white/75!",
-	badge: "bg-white/20! text-white!",
-	button: "text-white! bg-white/10! hover:bg-white/15!",
-} as const;
-
 function FlightToast(): ReactNode {
 	return (
 		<div className="flex flex-col gap-4 -mt-1.5">
