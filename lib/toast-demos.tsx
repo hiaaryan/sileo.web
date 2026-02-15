@@ -252,8 +252,6 @@ export function fireToast(type: ToastType, position?: SileoPosition) {
 		case "custom-flighty":
 			sileo.action({
 				title: "Booking Confirmed",
-				fill: "black",
-				styles: DARK_STYLES,
 				button: {
 					title: "View Details",
 					onClick: () => sileo.success({ title: "Details Viewed", position }),
