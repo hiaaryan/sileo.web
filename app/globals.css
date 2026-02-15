@@ -1,26 +1,78 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:where(.dark, .dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-border: var(--border);
+  --color-prose: var(--prose);
+  --font-sans: var(--font-inter);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  --background: #ffffff;
+  --foreground: #0a0a0a;
+  --muted: #d4d4d4;
+  --muted-foreground: #a3a3a3;
+  --accent: #f5f5f5;
+  --accent-hover: #e5e5e5;
+  --border: #f0f0f0;
+  --prose: #737373;
+
+  /* sugar-high syntax highlighting */
+  --sh-class: #8b5cf6;
+  --sh-identifier: #525252;
+  --sh-sign: #a3a3a3;
+  --sh-property: #2563eb;
+  --sh-entity: #059669;
+  --sh-jsxliterals: #8b5cf6;
+  --sh-string: #16a34a;
+  --sh-keyword: #e11d48;
+  --sh-comment: #a3a3a3;
+}
+
+.dark {
+  --background: #0a0a0a;
+  --foreground: #fafafa;
+  --muted: #525252;
+  --muted-foreground: #737373;
+  --accent: #262626;
+  --accent-hover: #404040;
+  --border: #1a1a1a;
+  --prose: #a3a3a3;
+
+  --sh-class: #c4b5fd;
+  --sh-identifier: #d4d4d4;
+  --sh-sign: #737373;
+  --sh-property: #93c5fd;
+  --sh-entity: #6ee7b7;
+  --sh-jsxliterals: #c4b5fd;
+  --sh-string: #86efac;
+  --sh-keyword: #fda4af;
+  --sh-comment: #525252;
+}
+
+@layer base {
+  * {
+    @apply border-neutral-200 outline-neutral-300/50;
+  }
+  body {
+    @apply bg-background text-foreground;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Scope the Sileo toast viewport inside the hero browser demo so it
+   positions relative to the browser container, not the page viewport. */
+.hero-browser [data-sileo-viewport] {
+  position: absolute;
+}
+
+.video-browser [data-sileo-viewport] {
+  position: absolute;
 }

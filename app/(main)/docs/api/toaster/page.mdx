@@ -1,0 +1,55 @@
+import { Table } from "@/components/table";
+
+# Toaster
+
+The viewport component that renders toasts. Add it once to your layout.
+
+```tsx
+import { Toaster } from "sileo";
+```
+
+<Table
+	headers={["Prop", "Type", "Default", "Description"]}
+	rows={[
+		["position", "ToastPosition", "\"top-right\"", "Default position for all toasts"],
+		["offset", "number | string | object", "16", "Distance from viewport edges"],
+		["options", "Partial<ToastOptions>", "—", "Default options merged into every toast"],
+	]}
+/>
+
+## Offset
+
+The `offset` prop accepts a number, string, or per-side config.
+
+```tsx
+<Toaster offset={20} />
+
+<Toaster offset={{ top: 20, right: 16 }} />
+```
+
+## Default Options
+
+Set global defaults that apply to every toast.
+
+```tsx
+<Toaster
+  options={{
+    fill: "#171717",
+    styles: { description: "text-white/75!" },
+  }}
+/>
+```
+
+---
+
+## `ToastPosition`
+
+```tsx
+type ToastPosition =
+  | "top-left"
+  | "top-center"
+  | "top-right"
+  | "bottom-left"
+  | "bottom-center"
+  | "bottom-right";
+```

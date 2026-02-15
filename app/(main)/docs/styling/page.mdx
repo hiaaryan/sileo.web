@@ -1,0 +1,159 @@
+import { CodePreview } from "@/components/code-preview";
+import { Table } from "@/components/table";
+
+export const fillCode = `sileo.success({
+  title: "Saved",
+  fill: "#171717",
+});
+
+sileo.success({
+  title: "Booking confirmed",
+  fill: "black",
+  styles: {
+    title: "text-white!",
+    description: "text-white/75!",
+  },
+});`;
+
+export const styleOverrideCode = `sileo.action({
+  title: "New Sale",
+  fill: "black",
+  styles: {
+    title: "text-white!",
+    description: "text-white/75!",
+    badge: "bg-white/20!",
+    button: "bg-white/10! hover:bg-white/15!",
+  },
+});`;
+
+export const customIconCode = `import { Rocket } from "lucide-react";
+
+sileo.success({
+  title: "Deployed",
+  icon: <Rocket className="size-3.5" />,
+});`;
+
+export const customDescCode = `sileo.success({
+  title: "Payment received",
+  description: (
+    <span className="text-green-500/50! font-medium!">
+      We received your payment of $49.00.
+    </span>
+  ),
+});`;
+
+export const roundnessCode = `sileo.success({
+  title: "Sharp corners",
+  roundness: 8,
+});`;
+
+export const autopilotCode = `sileo.success({
+  title: "Manual only",
+  description: "Expand and collapse are disabled.",
+  autopilot: false,
+});
+
+sileo.success({
+  title: "Custom timing",
+  description: "Expand after 500ms, collapse after 3s.",
+  autopilot: {
+    expand: 500,
+    collapse: 3000,
+  },
+});`;
+
+# Styling
+
+Sileo is designed to look great out of the box. When you need to customize, there are a few escape hatches.
+
+## Fill Color
+
+The `fill` prop controls the badge/accent color. Set it to `"black"` to make the entire toast dark.
+
+<CodePreview
+	actions={[
+		{ label: "Dark accent", id: "fill-accent" },
+		{ label: "Full dark", id: "fill-dark" },
+	]}
+	code={fillCode}
+/>
+
+## Style Overrides
+
+The `styles` prop lets you override classes on individual sub-elements. Use Tailwind's `!` modifier to ensure specificity.
+
+<CodePreview
+	actions={[{ label: "Try it", id: "style-override" }]}
+	code={styleOverrideCode}
+/>
+
+### Available Keys
+
+<Table
+	headers={["Key", "Element"]}
+	rows={[
+		["title", "The heading text"],
+		["description", "The body/description area"],
+		["badge", "The icon badge circle"],
+		["button", "The action button"],
+	]}
+/>
+
+## Custom Icons
+
+Pass any React node as the `icon` prop to replace the default state icon.
+
+<CodePreview
+	actions={[{ label: "Try it", id: "custom-icon" }]}
+	code={customIconCode}
+/>
+
+Set `icon` to `null` to hide the badge entirely.
+
+## Custom Description
+
+The `description` prop accepts JSX, so you can build rich toast content.
+
+<CodePreview
+	actions={[{ label: "Try it", id: "custom-description" }]}
+	code={customDescCode}
+/>
+
+## Global Defaults
+
+Use the `Toaster`'s `options` prop to set defaults for every toast.
+
+```tsx
+<Toaster
+  position="top-right"
+  offset={16}
+  options={{
+    fill: "#171717",
+    roundness: 18,
+    styles: {
+      description: "text-white/75!",
+    },
+  }}
+/>
+```
+
+## Roundness
+
+Control the border radius with the `roundness` prop (default `18`).
+
+<CodePreview
+	actions={[{ label: "Try it", id: "roundness" }]}
+	code={roundnessCode}
+/>
+
+## Autopilot
+
+By default, toasts auto-expand after a short delay and collapse before dismissing. Control this with the `autopilot` prop.
+
+<CodePreview
+	actions={[
+		{ label: "Disabled", id: "autopilot-off" },
+		{ label: "Custom timing", id: "autopilot-custom" },
+	]}
+	code={autopilotCode}
+/>

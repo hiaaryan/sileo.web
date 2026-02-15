@@ -1,0 +1,101 @@
+import { CodePreview } from "@/components/code-preview";
+
+export const fireToastCode = `sileo.success({ title: "Changes saved" });
+
+sileo.error({
+  title: "Something went wrong",
+  description: "Please try again later.",
+});
+
+sileo.warning({ title: "Storage almost full" });
+
+sileo.info({ title: "New update available" });`;
+
+export const actionCode = `sileo.action({
+  title: "File uploaded",
+  description: "Share it with your team?",
+  button: {
+    title: "Share",
+    onClick: () => console.log("Shared!"),
+  },
+});`;
+
+export const promiseCode = `sileo.promise(fetchData(), {
+  loading: { title: "Loading..." },
+  success: { title: "Done!" },
+  error: { title: "Failed" },
+});`;
+
+# Getting Started
+
+Sileo is a tiny, opinionated toast component for React. It uses gooey SVG morphing and spring physics to create buttery smooth notifications — beautiful by default, no configuration required.
+
+## Installation
+
+```bash
+npm install sileo
+```
+
+## Quick Setup
+
+Add the `Toaster` component to your app's root layout, then call `sileo` from anywhere.
+
+```tsx
+import { sileo, Toaster } from "sileo";
+
+export default function App() {
+  return (
+    <>
+      <Toaster position="top-right" />
+      <YourApp />
+    </>
+  );
+}
+```
+
+## Fire a Toast
+
+<CodePreview
+	actions={[
+		{ label: "Success", id: "success" },
+		{ label: "Error", id: "error" },
+		{ label: "Warning", id: "warning" },
+		{ label: "Info", id: "info" },
+	]}
+	code={fireToastCode}
+/>
+
+## Action Toast
+
+Toasts can include a button for user interaction.
+
+<CodePreview
+	actions={[{ label: "Try it", id: "action" }]}
+	code={actionCode}
+/>
+
+## Promise Toast
+
+Chain loading, success, and error states from a single promise.
+
+<CodePreview
+	actions={[{ label: "Try it", id: "promise" }]}
+	code={promiseCode}
+/>
+
+The promise method returns the original promise, so you can chain further.
+
+## Positions
+
+Sileo supports six positions. Set it on the `Toaster` as a default, or override per-toast.
+
+```tsx
+<Toaster position="top-right" />
+
+sileo.success({
+  title: "Saved",
+  position: "bottom-center",
+});
+```
+
+Available positions: `top-left`, `top-center`, `top-right`, `bottom-left`, `bottom-center`, `bottom-right`.
