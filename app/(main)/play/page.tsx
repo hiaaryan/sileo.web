@@ -67,6 +67,8 @@ export default function Playground() {
 					))}
 				</div>
 
+				<div className="w-[80%] border-dashed border-t border-border my-4" />
+
 				{/* Toast buttons */}
 				<div className="flex flex-wrap items-center justify-center gap-2 px-6">
 					{PLAYGROUND_BUTTONS.map((btn) => (

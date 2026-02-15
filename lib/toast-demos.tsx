@@ -1,12 +1,4 @@
-import {
-	Armchair,
-	ArrowRight,
-	ArrowUp,
-	Bell,
-	File,
-	Rocket,
-	Star,
-} from "lucide-react";
+import { ArrowRight, ArrowUp, File, Rocket } from "lucide-react";
 import type { ReactNode } from "react";
 import type { SileoPosition } from "sileo";
 import { sileo } from "sileo";
@@ -49,12 +41,39 @@ export const PLAYGROUND_BUTTONS: ToastButton[] = [
 	{ label: "Warning", type: "warning" },
 	{ label: "Info", type: "info" },
 	{ label: "Action", type: "action" },
-	{ label: "Description", type: "description" },
 	{ label: "Icon", type: "custom-icon" },
-	{ label: "Promise", type: "promise-success" },
-	{ label: "Promise Error", type: "promise-error" },
-	{ label: "Flighty", type: "custom-flighty" },
+	{ label: "Promise", type: "promise" },
 ];
+
+const AirplaneSeatIcon = (props: React.SVGProps<SVGSVGElement>) => (
+	<svg
+		xmlns="http://www.w3.org/2000/svg"
+		viewBox="0 0 24 24"
+		width={24}
+		height={24}
+		color={"#ff0000"}
+		fill={"none"}
+		{...props}
+	>
+		<title>Airplane Seat</title>
+		<path
+			d="M13.9674 17.7501H16.3235L15 20.2501H18C18.5523 20.2501 19 20.6978 19 21.2501C19 21.8023 18.5523 22.2501 18 22.2501H8C7.44772 22.2501 7 21.8023 7 21.2501C7 20.6978 7.44772 20.2501 8 20.2501H12.5L13.9674 17.7501Z"
+			fill="#141B34"
+		/>
+		<path
+			d="M12.5001 10.25H18.0001"
+			stroke="#141B34"
+			strokeWidth="2"
+			strokeLinecap="round"
+			strokeLinejoin="round"
+		/>
+		<path
+			opacity="0.4"
+			d="M8.48169 17.75H17.9722C19.0921 17.75 20 16.8578 20 15.7571C20 14.25 17.9722 13.7641 17.9722 13.7641C17.9722 13.7641 14.2844 12.3465 10 13.75C10 13.75 9.86099 8.62277 7.70985 2.9207C7.28543 1.79569 5.90119 1.41158 4.88539 2.07713C4.21507 2.51633 3.8807 3.30969 4.0387 4.08608L6.49327 16.1479C6.68283 17.0795 7.51507 17.75 8.48169 17.75Z"
+			fill="#141B34"
+		/>
+	</svg>
+);
 
 /* -------------------------- Shared toast JSX ------------------------------ */
 
@@ -119,7 +138,7 @@ function FlightToast(): ReactNode {
 					</p>
 				</div>
 				<div className="flex items-center gap-1.5 bg-amber-500 rounded-xl px-2.25 py-1.25">
-					<Armchair strokeWidth={2.5} className="size-4 text-black" />
+					<AirplaneSeatIcon className="size-4 text-black" />
 					<span className="text-black text-sm font-bold">32K</span>
 				</div>
 			</div>
@@ -176,19 +195,6 @@ export function fireToast(type: ToastType, position?: SileoPosition) {
 				position,
 			});
 			break;
-		case "description":
-			sileo.success({
-				title: "Payment Received",
-				icon: <Bell className="size-3.5" />,
-				description: (
-					<span className="text-blue-500/50">
-						We received your payment of $49.00. A receipt has been sent to your
-						email.
-					</span>
-				),
-				position,
-			});
-			break;
 		case "promise":
 			sileo.promise(new Promise((resolve) => setTimeout(resolve, 2500)), {
 				loading: { title: "Booking Flight" },
@@ -204,52 +210,11 @@ export function fireToast(type: ToastType, position?: SileoPosition) {
 				position,
 			});
 			break;
-		case "promise-success":
-			sileo.promise(new Promise((resolve) => setTimeout(resolve, 2500)), {
-				loading: { title: "Saving Changes..." },
-				success: {
-					title: "Changes Saved",
-					icon: <Star className="size-3.5" />,
-					description: "All changes have been saved successfully.",
-					position,
-				},
-				error: { title: "Save Failed" },
-				position,
-			});
-			break;
-		case "promise-error":
-			sileo.promise(
-				new Promise((_, reject) =>
-					setTimeout(() => reject(new Error("Network error")), 2500),
-				),
-				{
-					loading: { title: "Connecting..." },
-					success: { title: "Connected" },
-					error: {
-						title: "Connection Failed",
-						description: "Network error, please check your connection.",
-						position,
-					},
-					position,
-				},
-			);
-			break;
 		case "custom-icon":
 			sileo.success({
 				title: "Deployment Started",
 				icon: <Rocket className="size-3.5" />,
 				description: "Your app is being deployed to production.",
-				position,
-			});
-			break;
-		case "custom-flighty":
-			sileo.action({
-				title: "Booking Confirmed",
-				button: {
-					title: "View Details",
-					onClick: () => sileo.success({ title: "Details Viewed", position }),
-				},
-				description: <FlightToast />,
 				position,
 			});
 			break;
