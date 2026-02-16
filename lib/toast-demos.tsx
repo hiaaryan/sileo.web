@@ -1,4 +1,5 @@
 import { ArrowRight, ArrowUp, File, Rocket } from "lucide-react";
+import Image from "next/image";
 import type { ReactNode } from "react";
 import type { SileoPosition } from "sileo";
 import { sileo } from "sileo";
@@ -45,71 +46,38 @@ export const PLAYGROUND_BUTTONS: ToastButton[] = [
 	{ label: "Promise", type: "promise" },
 ];
 
-const AirplaneSeatIcon = (props: React.SVGProps<SVGSVGElement>) => (
-	<svg
-		xmlns="http://www.w3.org/2000/svg"
-		viewBox="0 0 24 24"
-		width={24}
-		height={24}
-		color={"#ff0000"}
-		fill={"none"}
-		{...props}
-	>
-		<title>Airplane Seat</title>
-		<path
-			d="M13.9674 17.7501H16.3235L15 20.2501H18C18.5523 20.2501 19 20.6978 19 21.2501C19 21.8023 18.5523 22.2501 18 22.2501H8C7.44772 22.2501 7 21.8023 7 21.2501C7 20.6978 7.44772 20.2501 8 20.2501H12.5L13.9674 17.7501Z"
-			fill="#141B34"
-		/>
-		<path
-			d="M12.5001 10.25H18.0001"
-			stroke="#141B34"
-			strokeWidth="2"
-			strokeLinecap="round"
-			strokeLinejoin="round"
-		/>
-		<path
-			opacity="0.4"
-			d="M8.48169 17.75H17.9722C19.0921 17.75 20 16.8578 20 15.7571C20 14.25 17.9722 13.7641 17.9722 13.7641C17.9722 13.7641 14.2844 12.3465 10 13.75C10 13.75 9.86099 8.62277 7.70985 2.9207C7.28543 1.79569 5.90119 1.41158 4.88539 2.07713C4.21507 2.51633 3.8807 3.30969 4.0387 4.08608L6.49327 16.1479C6.68283 17.0795 7.51507 17.75 8.48169 17.75Z"
-			fill="#141B34"
-		/>
-	</svg>
-);
-
 /* -------------------------- Shared toast JSX ------------------------------ */
 
 function FlightToast(): ReactNode {
 	return (
 		<div className="flex flex-col gap-4 -mt-1.5">
 			<div className="flex items-center -mb-4 justify-between">
-				{/* biome-ignore lint: external logo used in demo toast */}
-				<img
+				<Image
+					width={70}
+					height={28}
 					className="h-7.5 -ml-1.5 w-auto invert-0 dark:invert"
-					src="https://united.mediaroom.com/images/white_logo.png"
-					width={72}
-					height={30}
+					src="/united.png"
 					decoding="async"
 					alt="United Airlines"
 				/>
-				<div className="text-sm opacity-50 font-medium tracking-tight leading-none">
-					UA13A
+				<div className="text-[13px] opacity-50 font-medium tracking-tight leading-none">
+					PNR <span className="text-white dark:text-black">EC2QW4</span>
 				</div>
 			</div>
-			<div className="flex items-center justify-between">
-				<span className="text-2xl font-medium mt-6 text-white dark:text-black tracking-tight leading-none">
+			<div className="flex items-center justify-between overflow-visible">
+				<span className="text-2xl font-medium mt-4 text-white dark:text-black tracking-tight leading-none">
 					DEL
 				</span>
-				<div
-					className="flex-1 mx-3 relative flex items-center"
-					style={{ height: 40 }}
-				>
+				<div className="flex-1 mx-1 relative flex  overflow-visible items-center max-h-[10px]">
 					<svg
-						viewBox="0 0 200 36"
+						viewBox="0 0 300 120"
 						fill="none"
-						className="absolute inset-0 -mt-2 w-full h-full overflow-visible mask-x-to-90% mask-x-from-80%"
+						preserveAspectRatio="none"
+						className="absolute inset-x-0 -mb-5 bottom-0 w-full h-[80px] overflow-visible mask-x-to-87% mask-x-from-77%"
 					>
 						<title>Flight path</title>
 						<path
-							d="M 10 34 Q 100 -20 190 34"
+							d="M 4 118 Q 150 -20 296 118"
 							stroke="#22c55e"
 							strokeWidth="2"
 							strokeDasharray="6 4"
@@ -119,28 +87,16 @@ function FlightToast(): ReactNode {
 							shapeRendering="geometricPrecision"
 						/>
 					</svg>
-					<div className="absolute left-0 bottom-0 size-5 rounded-full bg-green-500/30 flex items-center justify-center z-10">
+					<div className="absolute left-3 -bottom-4 size-5 rounded-full bg-green-500/30 flex items-center justify-center z-10">
 						<ArrowRight className="size-4 -rotate-40 text-green-500" />
 					</div>
-					<div className="absolute right-0 bottom-0 size-5 rounded-full bg-green-500/30 flex items-center justify-center z-10">
+					<div className="absolute right-3 -bottom-4 size-5 rounded-full bg-green-500/30 flex items-center justify-center z-10">
 						<ArrowRight className="size-4 rotate-40 text-green-500" />
 					</div>
 				</div>
-				<span className="text-2xl mt-6 font-medium text-white dark:text-black tracking-tight leading-none">
+				<span className="text-2xl mt-4 font-medium text-white dark:text-black tracking-tight leading-none">
 					SFO
 				</span>
-			</div>
-			<div className="flex items-center justify-between">
-				<div className="flex flex-col">
-					<span className="text-green-400 text-sm font-semibold">On Time</span>
-					<p className="text-white/50 dark:text-black/50 text-xs">
-						PNR <span className="text-white dark:text-black">EC2QW4</span>
-					</p>
-				</div>
-				<div className="flex items-center gap-1.5 bg-amber-500 rounded-xl px-2.25 py-1.25">
-					<AirplaneSeatIcon className="size-4 text-black" />
-					<span className="text-black text-sm font-bold">32K</span>
-				</div>
 			</div>
 		</div>
 	);
