@@ -42,9 +42,30 @@ export const customDescCode = `sileo.success({
   ),
 });`;
 
+export const richDescCode = `sileo.info({
+  title: "Team update",
+  description: (
+    <div className="flex flex-col gap-2">
+      <div className="flex -space-x-2">
+        <img src="/memojis/Rectangle.png" className="size-7 rounded-full ring-2 ring-white" />
+        <img src="/memojis/Rectangle-1.png" className="size-7 rounded-full ring-2 ring-white" />
+        <img src="/memojis/Rectangle-2.png" className="size-7 rounded-full ring-2 ring-white" />
+      </div>
+      <span className="text-xs! text-muted-foreground!">
+        3 new members joined the project.
+      </span>
+    </div>
+  ),
+});`;
+
 export const roundnessCode = `sileo.success({
   title: "Sharp corners",
   roundness: 8,
+});
+
+sileo.success({
+  title: "Fully round",
+  roundness: 16,
 });`;
 
 export const autopilotCode = `sileo.success({
@@ -62,13 +83,37 @@ sileo.success({
   },
 });`;
 
+export const dismissCode = `const id = sileo.success({ title: "Dismissable" });
+
+// Dismiss a single toast
+sileo.dismiss(id);
+
+// Clear all toasts
+sileo.clear();
+
+// Clear toasts at a specific position
+sileo.clear("top-right");`;
+
+export const darkThemeCode = `// Set dark defaults for all toasts via Toaster
+<Toaster
+  options={{
+    fill: "#171717",
+    styles: {
+      title: "text-white!",
+      description: "text-white/75!",
+      badge: "bg-white/10!",
+      button: "bg-white/10! hover:bg-white/15!",
+    },
+  }}
+/>`;
+
 # Styling
 
 Sileo is designed to look great out of the box. When you need to customize, there are a few escape hatches.
 
 ## Fill Color
 
-The `fill` prop controls the badge/accent color. Set it to `"black"` to make the entire toast dark.
+The `fill` prop sets the SVG background color of the toast. The default is `"#FFFFFF"`. Set it to a dark color like `"#171717"` or `"black"` to create a dark toast — just make sure to pair it with light text via `styles`.
 
 <CodePreview
 	actions={[
@@ -90,12 +135,12 @@ The `styles` prop lets you override classes on individual sub-elements. Use Tail
 ### Available Keys
 
 <Table
-	headers={["Key", "Element"]}
+	headers={["Key", "Element", "Selector"]}
 	rows={[
-		["title", "The heading text"],
-		["description", "The body/description area"],
-		["badge", "The icon badge circle"],
-		["button", "The action button"],
+		["title", "The heading text", "[data-sileo-title]"],
+		["description", "The body/description area", "[data-sileo-description]"],
+		["badge", "The icon badge circle", "[data-sileo-badge]"],
+		["button", "The action button", "[data-sileo-button]"],
 	]}
 />
 
@@ -108,8 +153,6 @@ Pass any React node as the `icon` prop to replace the default state icon.
 	code={customIconCode}
 />
 
-Set `icon` to `null` to hide the badge entirely.
-
 ## Custom Description
 
 The `description` prop accepts JSX, so you can build rich toast content.
@@ -119,36 +162,33 @@ The `description` prop accepts JSX, so you can build rich toast content.
 	code={customDescCode}
 />
 
-## Global Defaults
+You can use any layout — stack multiple elements, add icons, or use your own components.
 
-Use the `Toaster`'s `options` prop to set defaults for every toast.
-
-```tsx
-<Toaster
-  position="top-right"
-  offset={16}
-  options={{
-    fill: "#171717",
-    roundness: 18,
-    styles: {
-      description: "text-white/75!",
-    },
-  }}
+<CodePreview
+	actions={[{ label: "Rich content", id: "rich-description" }]}
+	code={richDescCode}
 />
-```
 
 ## Roundness
 
-Control the border radius with the `roundness` prop (default `18`).
+Control the border radius with the `roundness` prop (default `16`). Set it lower for sharper corners or higher for a rounder pill shape.
 
 <CodePreview
-	actions={[{ label: "Try it", id: "roundness" }]}
+	actions={[
+		{ label: "Sharp (8)", id: "roundness-sharp" },
+		{ label: "Round (16)", id: "roundness-round" },
+	]}
 	code={roundnessCode}
 />
+
+> **Performance note:** Higher `roundness` values increase the SVG blur radius used for the gooey morph effect, which is more expensive to render. The recommended value is `16` for a good balance between aesthetics and performance.
 
 ## Autopilot
 
 By default, toasts auto-expand after a short delay and collapse before dismissing. Control this with the `autopilot` prop.
+
+- `autopilot: false` — disables auto expand/collapse entirely (hover to expand)
+- `autopilot: { expand: ms, collapse: ms }` — custom timing for each phase
 
 <CodePreview
 	actions={[
@@ -157,3 +197,67 @@ By default, toasts auto-expand after a short delay and collapse before dismissin
 	]}
 	code={autopilotCode}
 />
+
+## Dismissing Toasts
+
+Use `sileo.dismiss(id)` to remove a specific toast, or `sileo.clear()` to remove all. You can also clear only toasts at a specific position.
+
+<CodePreview
+	actions={[
+		{ label: "Fire toast", id: "dismiss-fire" },
+		{ label: "Dismiss it", id: "dismiss-one" },
+		{ label: "Clear all", id: "dismiss-all" },
+	]}
+	code={dismissCode}
+/>
+
+## Global Defaults
+
+Use the `Toaster`'s `options` prop to set defaults for every toast. This is useful for applying a consistent dark theme across your app.
+
+```tsx
+<Toaster
+  position="top-right"
+  options={{
+    fill: "#171717",
+    roundness: 16,
+    styles: {
+      title: "text-white!",
+      description: "text-white/75!",
+      badge: "bg-white/10!",
+      button: "bg-white/10! hover:bg-white/15!",
+    },
+  }}
+/>
+```
+
+## CSS Variables
+
+Sileo exposes CSS custom properties you can override globally to change state colors, dimensions, or animation timing.
+
+```css
+:root {
+  /* State colors (oklch) */
+  --sileo-state-success: oklch(0.723 0.219 142.136);
+  --sileo-state-loading: oklch(0.556 0 0);
+  --sileo-state-error: oklch(0.637 0.237 25.331);
+  --sileo-state-warning: oklch(0.795 0.184 86.047);
+  --sileo-state-info: oklch(0.685 0.169 237.323);
+  --sileo-state-action: oklch(0.623 0.214 259.815);
+
+  /* Dimensions */
+  --sileo-width: 350px;
+  --sileo-height: 40px;
+
+  /* Animation */
+  --sileo-duration: 600ms;
+}
+```
+
+For example, to make all success toasts use a custom brand color:
+
+```css
+:root {
+  --sileo-state-success: oklch(0.7 0.2 200);
+}
+```

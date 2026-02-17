@@ -1,14 +1,16 @@
 "use client";
 
 import { Rocket } from "lucide-react";
+import Image from "next/image";
 import { useState } from "react";
 import { sileo } from "sileo";
 import { tokenize } from "sugar-high";
-
 import { Button } from "@/components/button";
 import { TOKEN_COLORS } from "@/lib/token-colors";
 
 /* --------------------------------- Demos ---------------------------------- */
+
+let lastDemoId: string | undefined;
 
 const DEMOS: Record<string, () => void> = {
 	success: () => sileo.success({ title: "Changes saved" }),
@@ -67,6 +69,45 @@ const DEMOS: Record<string, () => void> = {
 				</span>
 			),
 		}),
+	"rich-description": () =>
+		sileo.info({
+			title: "Team update",
+			description: (
+				<div className="flex items-center gap-8">
+					<div className="flex -space-x-1">
+						<Image
+							src="/memojis/Rectangle-1.png"
+							className="size-6 rounded-full ring-2 ring-white"
+							alt="Alice"
+							width={24}
+							height={24}
+						/>
+						<Image
+							src="/memojis/Rectangle.png"
+							className="size-6 rounded-full ring-2 ring-white"
+							alt="Bob"
+							width={24}
+							height={24}
+						/>
+
+						<Image
+							src="/memojis/Rectangle-2.png"
+							className="size-6 rounded-full ring-2 ring-white"
+							alt="Charlie"
+							width={24}
+							height={24}
+						/>
+					</div>
+					<span className="text-[13px]! text-muted-foreground! leading-4.5">
+						Alice, Bob, and Charlie joined the Design Engineering Team.
+					</span>
+				</div>
+			),
+		}),
+	"roundness-sharp": () =>
+		sileo.success({ title: "Sharp corners", roundness: 8 }),
+	"roundness-round": () =>
+		sileo.success({ title: "Fully round", roundness: 16 }),
 	roundness: () => sileo.success({ title: "Sharp corners", roundness: 8 }),
 	"autopilot-off": () =>
 		sileo.success({
@@ -80,6 +121,13 @@ const DEMOS: Record<string, () => void> = {
 			description: "Expand after 500ms, collapse after 3s.",
 			autopilot: { expand: 500, collapse: 3000 },
 		}),
+	"dismiss-fire": () => {
+		lastDemoId = sileo.success({ title: "Dismissable" });
+	},
+	"dismiss-one": () => {
+		if (lastDemoId) sileo.dismiss(lastDemoId);
+	},
+	"dismiss-all": () => sileo.clear(),
 };
 
 /* -------------------------------- Component ------------------------------- */
@@ -129,7 +177,6 @@ export function CodePreview({ code, actions }: CodePreviewProps) {
 							const color = TOKEN_COLORS[type];
 							if (!color) return value;
 							return (
-								// eslint-disable-next-line react/no-array-index-key
 								<span key={i} style={{ color }}>
 									{value}
 								</span>

@@ -26,10 +26,9 @@ export default function MainLayout({ children }: { children: ReactNode }) {
 	return (
 		<div className="min-h-dvh w-full flex flex-col bg-background text-foreground">
 			<Toaster
-				position="top-center"
+				position="top-right"
 				offset={8}
 				options={{
-					roundness: 17,
 					fill: dark ? "#ffffff" : "#171717",
 					styles: {
 						description: dark ? "text-black/60!" : "text-white/75!",

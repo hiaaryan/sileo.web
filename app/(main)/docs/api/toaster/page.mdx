@@ -11,9 +11,10 @@ import { Toaster } from "sileo";
 <Table
 	headers={["Prop", "Type", "Default", "Description"]}
 	rows={[
-		["position", "ToastPosition", "\"top-right\"", "Default position for all toasts"],
-		["offset", "number | string | object", "16", "Distance from viewport edges"],
-		["options", "Partial<ToastOptions>", "—", "Default options merged into every toast"],
+		["children", "ReactNode", "—", "App content to render alongside toasts"],
+		["position", "SileoPosition", "\"top-right\"", "Default position for all toasts"],
+		["offset", "number | string | object", "—", "Distance from viewport edges"],
+		["options", "Partial<SileoOptions>", "—", "Default options merged into every toast"],
 	]}
 />
 
@@ -42,10 +43,10 @@ Set global defaults that apply to every toast.
 
 ---
 
-## `ToastPosition`
+## `SileoPosition`
 
 ```tsx
-type ToastPosition =
+type SileoPosition =
   | "top-left"
   | "top-center"
   | "top-right"

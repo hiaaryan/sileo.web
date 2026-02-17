@@ -18,16 +18,18 @@ import { sileo } from "sileo";
 		["sileo.warning(options)", "Amber warning toast"],
 		["sileo.info(options)", "Blue info toast"],
 		["sileo.action(options)", "Toast with an action button"],
-		["sileo.show(options)", "Generic toast without a state badge"],
+		["sileo.show(options)", "Generic toast (defaults to success state)"],
 		["sileo.promise(promise, opts)", "Loading → success/error flow"],
+		["sileo.dismiss(id)", "Dismiss a specific toast by id"],
+		["sileo.clear(position?)", "Clear all toasts, or only those at a specific position"],
 	]}
 />
 
-All methods return the toast `id` as a string, except `promise` which returns the original promise.
+All shortcut methods return the toast `id` as a string. `promise` returns the original promise. `dismiss` and `clear` return void.
 
 ---
 
-## `ToastOptions`
+## `SileoOptions`
 
 Passed to every `sileo.*()` method.
 
@@ -36,23 +38,23 @@ Passed to every `sileo.*()` method.
 	rows={[
 		["title", "string", "—", "Toast heading"],
 		["description", "ReactNode | string", "—", "Body content, supports JSX"],
-		["position", "ToastPosition", "Toaster default", "Override position for this toast"],
+		["position", "SileoPosition", "Toaster default", "Override position for this toast"],
 		["duration", "number | null", "6000", "Auto-dismiss ms. null = sticky"],
 		["icon", "ReactNode | null", "State icon", "Custom icon in the badge"],
-		["fill", "string", "—", "Badge fill color, or \"black\" for full dark mode"],
-		["styles", "ToastStyles", "—", "Class overrides for sub-elements"],
-		["roundness", "number", "18", "Border radius in pixels"],
+		["fill", "string", "\"#FFFFFF\"", "SVG fill color for the toast background"],
+		["styles", "SileoStyles", "—", "Class overrides for sub-elements"],
+		["roundness", "number", "16", "Border radius in pixels"],
 		["autopilot", "boolean | object", "true", "Auto expand/collapse timing"],
-		["button", "ToastButton", "—", "Action button config"],
+		["button", "SileoButton", "—", "Action button config"],
 	]}
 />
 
 ---
 
-## `ToastButton`
+## `SileoButton`
 
 ```tsx
-interface ToastButton {
+interface SileoButton {
   title: string;
   onClick: () => void;
 }
@@ -60,12 +62,12 @@ interface ToastButton {
 
 ---
 
-## `ToastStyles`
+## `SileoStyles`
 
 Override classes for individual toast sub-elements.
 
 ```tsx
-interface ToastStyles {
+interface SileoStyles {
   title?: string;
   description?: string;
   badge?: string;
@@ -88,19 +90,21 @@ sileo.success({
 
 ---
 
-## `ToastPromiseOptions`
+## `SileoPromiseOptions`
 
 Passed as the second argument to `sileo.promise()`.
 
 ```tsx
-interface ToastPromiseOptions<T = unknown> {
-  loading: Pick<ToastOptions, "title" | "icon">;
-  success: ToastOptions | ((data: T) => ToastOptions);
-  error: ToastOptions | ((err: unknown) => ToastOptions);
+interface SileoPromiseOptions<T = unknown> {
+  loading: Pick<SileoOptions, "title" | "icon">;
+  success: SileoOptions | ((data: T) => SileoOptions);
+  error: SileoOptions | ((err: unknown) => SileoOptions);
+  action?: SileoOptions | ((data: T) => SileoOptions);
+  position?: SileoPosition;
 }
 ```
 
-The `success` and `error` fields can be static options or callbacks that receive the resolved/rejected value.
+The `success` and `error` fields can be static options or callbacks that receive the resolved/rejected value. The optional `action` field, when provided, replaces the success toast with an action state instead.
 
 ```tsx
 sileo.promise(createUser(data), {
