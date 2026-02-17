@@ -67,6 +67,10 @@
   }
 }
 
+.no-transitions * {
+  transition: none !important;
+}
+
 /* Scope the Sileo toast viewport inside the hero browser demo so it
    positions relative to the browser container, not the page viewport. */
 .hero-browser [data-sileo-viewport] {

@@ -16,12 +16,15 @@ export default function MainLayout({ children }: { children: ReactNode }) {
 
 	useEffect(() => {
 		localStorage.setItem("sileo-docs-theme", dark ? "dark" : "light");
+		document.documentElement.classList.add("no-transitions");
+		document.documentElement.classList.toggle("dark", dark);
+		requestAnimationFrame(() => {
+			document.documentElement.classList.remove("no-transitions");
+		});
 	}, [dark]);
 
 	return (
-		<div
-			className={`min-h-dvh w-full flex flex-col bg-background text-foreground transition-colors duration-150 ${dark ? "dark" : ""}`}
-		>
+		<div className="min-h-dvh w-full flex flex-col bg-background text-foreground">
 			<Toaster
 				position="top-center"
 				offset={8}
@@ -38,7 +41,7 @@ export default function MainLayout({ children }: { children: ReactNode }) {
 
 				<div className="flex-1 flex flex-col">{children}</div>
 
-				<footer className="py-6 flex items-center justify-between border-t border-border transition-colors duration-150">
+				<footer className="py-6 flex items-center justify-between border-t border-border">
 					<span className="text-xs text-muted-foreground">
 						Sileo — MIT License
 					</span>

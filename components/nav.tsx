@@ -6,7 +6,11 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const NAV_LINKS = [
-	{ href: "https://github.com/hiaaryan/sileo", label: "GitHub", external: true },
+	{
+		href: "https://github.com/hiaaryan/sileo",
+		label: "GitHub",
+		external: true,
+	},
 	{ href: "/docs", label: "Docs", external: false },
 	{ href: "/play", label: "Playground", external: false },
 ] as const;
@@ -21,7 +25,6 @@ export function Nav({ className, dark, onToggleDark }: NavProps) {
 	const [open, setOpen] = useState(false);
 	const close = () => setOpen(false);
 
-	// Lock body scroll when open
 	useEffect(() => {
 		document.body.style.overflow = open ? "hidden" : "";
 		return () => {
@@ -50,7 +53,7 @@ export function Nav({ className, dark, onToggleDark }: NavProps) {
 								href={link.href}
 								target="_blank"
 								rel="noopener noreferrer"
-								className="h-8 px-3 rounded-full text-xs font-medium text-muted-foreground hover:text-foreground transition-colors flex items-center"
+								className="block py-2.5 px-3 rounded-full text-xs leading-none font-medium text-muted-foreground hover:text-foreground transition-colors"
 							>
 								{link.label}
 							</a>
@@ -58,7 +61,7 @@ export function Nav({ className, dark, onToggleDark }: NavProps) {
 							<Link
 								key={link.href}
 								href={link.href}
-								className="h-8 px-3 rounded-full text-xs font-medium text-muted-foreground hover:text-foreground transition-colors flex items-center"
+								className="block py-2.5 px-3 rounded-full text-xs leading-none font-medium text-muted-foreground hover:text-foreground transition-colors"
 							>
 								{link.label}
 							</Link>
@@ -97,7 +100,7 @@ export function Nav({ className, dark, onToggleDark }: NavProps) {
 						<motion.button
 							type="button"
 							aria-label="Close menu"
-							className="fixed inset-0 z-50 bg-black/40 sm:hidden"
+							className="fixed inset-0 z-50 bg-black/5 backdrop-blur sm:hidden"
 							onClick={close}
 							initial={{ opacity: 0 }}
 							animate={{ opacity: 1 }}
@@ -107,7 +110,7 @@ export function Nav({ className, dark, onToggleDark }: NavProps) {
 
 						{/* Panel */}
 						<motion.div
-							className="fixed top-2 right-2 bottom-2 z-50 w-64 bg-background border border-border rounded-2xl p-2 flex flex-col gap-6 shadow-xl sm:hidden"
+							className="fixed top-2 right-2 bottom-2 z-50 w-64 bg-background border border-border rounded-2xl p-2 flex flex-col justify-between sm:hidden"
 							initial={{ opacity: 0, x: "50%" }}
 							animate={{ opacity: 1, x: 0 }}
 							exit={{ opacity: 0, x: "50%" }}
@@ -121,7 +124,7 @@ export function Nav({ className, dark, onToggleDark }: NavProps) {
 											href={link.href}
 											target="_blank"
 											rel="noopener noreferrer"
-											className="h-8 px-2 rounded-xl text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent transition-colors flex items-center"
+											className="h-8 px-2 rounded-xl text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-accent transition-colors flex items-center"
 										>
 											{link.label}
 										</a>
@@ -130,7 +133,7 @@ export function Nav({ className, dark, onToggleDark }: NavProps) {
 											key={link.href}
 											href={link.href}
 											onClick={close}
-											className="h-8 px-2 rounded-xl text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent transition-colors flex items-center"
+											className="h-8 px-2 rounded-xl text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-accent transition-colors flex items-center"
 										>
 											{link.label}
 										</Link>
@@ -142,7 +145,7 @@ export function Nav({ className, dark, onToggleDark }: NavProps) {
 								<button
 									type="button"
 									onClick={onToggleDark}
-									className="h-10 px-3 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-accent transition-colors flex items-center gap-2 cursor-pointer"
+									className="h-8 px-2 gap-2 cursor-pointer rounded-xl text-xs font-medium text-muted-foreground hover:text-foreground hover:bg-accent transition-colors flex items-center"
 								>
 									{dark ? (
 										<>
