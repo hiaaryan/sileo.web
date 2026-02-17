@@ -29,7 +29,6 @@ export default function MainLayout({ children }: { children: ReactNode }) {
 				position="top-center"
 				offset={8}
 				options={{
-					roundness: 16,
 					fill: dark ? "#ffffff" : "#171717",
 					styles: {
 						description: dark ? "text-black/60!" : "text-white/75!",
