@@ -96,7 +96,7 @@ Passed as the second argument to `sileo.promise()`.
 
 ```tsx
 interface SileoPromiseOptions<T = unknown> {
-  loading: Pick<SileoOptions, "title" | "icon">;
+  loading: SileoOptions;
   success: SileoOptions | ((data: T) => SileoOptions);
   error: SileoOptions | ((err: unknown) => SileoOptions);
   action?: SileoOptions | ((data: T) => SileoOptions);

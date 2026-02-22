@@ -105,10 +105,10 @@ const DEMOS: Record<string, () => void> = {
 			),
 		}),
 	"roundness-sharp": () =>
-		sileo.success({ title: "Sharp corners", roundness: 8 }),
+		sileo.success({ title: "Sharp corners", roundness: 12 }),
 	"roundness-round": () =>
 		sileo.success({ title: "Fully round", roundness: 16 }),
-	roundness: () => sileo.success({ title: "Sharp corners", roundness: 8 }),
+	roundness: () => sileo.success({ title: "Sharp corners", roundness: 12 }),
 	"autopilot-off": () =>
 		sileo.success({
 			title: "Manual only",

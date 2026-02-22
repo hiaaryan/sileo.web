@@ -28,12 +28,7 @@ export default function MainLayout({ children }: { children: ReactNode }) {
 			<Toaster
 				position="top-right"
 				offset={8}
-				options={{
-					fill: dark ? "#ffffff" : "#171717",
-					styles: {
-						description: dark ? "text-black/60!" : "text-white/75!",
-					},
-				}}
+				theme={dark ? "dark" : "light"}
 			/>
 
 			<div className="max-w-4xl w-full mx-auto px-6 flex-1 flex flex-col">
