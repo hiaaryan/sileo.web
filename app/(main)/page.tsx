@@ -40,7 +40,7 @@ export default function Home() {
 					transition={{ duration: 0.6, delay: 0.08, ease }}
 					className="mt-5 text-[15px] text-neutral-400 text-center max-w-md leading-relaxed"
 				>
-					An opinionated toast component for React. Gooey SVG morphing, spring
+					An opinionated toast component for React. SVG morphing, spring
 					physics, and a minimal API — beautiful by default.
 				</motion.p>
 
